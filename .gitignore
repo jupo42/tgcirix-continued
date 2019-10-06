@@ -1,0 +1,5 @@
+# Ignore buildpkg working folders in repository
+/distfiles
+/srcfiles
+src/
+stage/
