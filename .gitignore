@@ -3,3 +3,4 @@
 /srcfiles
 src/
 stage/
+*.log
