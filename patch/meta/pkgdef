@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.fsf.org/software/patch/patch.html"
+pkgvendor="http://savannah.gnu.org/projects/patch/"
 shortdesc="Applies a patch to a file"
 
 [base]
