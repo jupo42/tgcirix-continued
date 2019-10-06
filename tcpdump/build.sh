@@ -1,4 +1,4 @@
-#!/usr/tgcware/bin/bash
+#!/usr/didbs/current/bin/bash
 #
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions

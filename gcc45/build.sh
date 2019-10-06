@@ -1,4 +1,4 @@
-#!/usr/tgcware/bin/bash
+#!/usr/didbs/current/bin/bash
 # This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
@@ -36,7 +36,7 @@ langs="--enable-languages=c,ada,c++,fortran,objc,obj-c++"
 withjava=0
 gas=1
 
-export CONFIG_SHELL=/usr/tgcware/bin/bash
+export CONFIG_SHELL=/usr/didbs/current/bin/bash
 
 datestamp()
 {

@@ -1,4 +1,4 @@
-#!/usr/tgcware/bin/bash
+#!/usr/didbs/current/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -44,7 +44,7 @@ install()
 {
     # Irix 6.2 ksh dumps core with a segfault in this directory
     setdir source
-    $GSED -i '/^SHELL/s|/bin/ksh|/usr/tgcware/bin/bash|' themes/Default/images/Makefile
+    $GSED -i '/^SHELL/s|/bin/ksh|/usr/didbs/current/bin/bash|' themes/Default/images/Makefile
     generic_install DESTDIR
     doc AUTHORS COPYING NEWS LICENSE libgimp/COPYING README
     # Dumps core.. WTF?

@@ -1,4 +1,4 @@
-#!/usr/tgcware/bin/bash
+#!/usr/didbs/current/bin/bash
 #
 # This is a generic build.sh script
 # It can be used nearly unmodified with many packages
@@ -55,7 +55,7 @@ build()
 reg install
 install()
 {
-    MAKE_PROG="make SHELL=/usr/tgcware/bin/bash"
+    MAKE_PROG="make SHELL=/usr/didbs/current/bin/bash"
     generic_install DESTDIR
     doc COPYING COPYRIGHT AUTHORS NEWS README
     $FIND ${stagedir} -name '.packlist' -o -name 'perllocal.pod' -o -name '*.bs' | $XARGS -i $RM -f {}

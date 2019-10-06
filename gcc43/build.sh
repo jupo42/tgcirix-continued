@@ -1,4 +1,4 @@
-#!/usr/tgcware/bin/bash
+#!/usr/didbs/current/bin/bash
 # This is a buildpkg build.sh script
 # build.sh helper functions
 . ${BUILDPKG_SCRIPTS}/build.sh.functions
@@ -46,7 +46,7 @@ if [ "$_os" = "irix53" ]; then
 fi
 if [ "$_os" = "irix62" ]; then
     configure_args+=(--enable-shared --enable-threads=posix95)
-    export CONFIG_SHELL=/usr/tgcware/bin/bash
+    export CONFIG_SHELL=/usr/didbs/current/bin/bash
     gas=1
     objdir=all_gas_pthreads
     #[ $withada -eq 1 ] && export GNAT_ROOT=/usr/tgcware/gcc-4.3.2/bin
