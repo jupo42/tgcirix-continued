@@ -2,7 +2,7 @@
 pkgname="$pkgprefix""$topdir"
 name="$topdir"
 pkgver="$pkgver"
-pkgvendor="http://www.gratisoft.us/sudo/"
+pkgvendor="http://gratisoft.us/
 shortdesc="Allows restricted root access for specified users"
 
 [base]

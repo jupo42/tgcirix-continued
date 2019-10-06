@@ -9,9 +9,9 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=sudo
-version=1.6.9p13
-pkgver=2
-source[0]=$topdir-$version.tar.gz
+version=1.6.9p23
+pkgver=1
+source[0]=ftp://ftp.sudo.ws/pub/sudo/OLD/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
 
