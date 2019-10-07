@@ -1,0 +1,14 @@
+[common]
+pkgname="${pkgprefix}${topdir}"
+name="$topdir"
+pkgver="$pkgver"
+pkgvendor="https://www.x.org/"
+shortdesc="X11 protocol headers"
+
+[devel]
+subsys=sw.dev
+files(-,root,sys)
+$_includedir
+$_sharedir
+$_libdir
+
