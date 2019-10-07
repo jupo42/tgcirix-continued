@@ -18,5 +18,4 @@ $_includedir
 $_libdir/*.so
 $_libdir/*.a
 $_libdir/pkgconfig/*.pc
-$_bindir
 $_sharedir/aclocal
