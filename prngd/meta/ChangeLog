@@ -1,0 +1,4 @@
+CHANGELOG
+---------
+* Sat Oct 27 2019 Justin Pope <jupo42@gmail.com> - 0.9.29-11
+- Updated to new /usr/local prefix for new OpenSSL/OpenSSH build deps

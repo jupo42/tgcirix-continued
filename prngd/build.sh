@@ -10,10 +10,10 @@
 # Check the following 4 variables before running the script
 topdir=prngd
 version=0.9.29
-pkgver=10
-source[0]=$topdir-$version.tar.gz
+pkgver=11
+source[0]=https://sourceforge.net/projects/$topdir/files/$topdir/$version/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=prngd-irix53-support.patch
+#patch[0]=prngd-irix53-support.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -70,17 +70,17 @@ install()
     [ "$_os" = "irix62" ] && $CP contrib/IRIX-65/prngd.conf.irix-65 ${stagedir}${prefix}/${_sysconfdir}/prngd/prngd.conf
 
     # Install initscript
-    $CP $metadir/prngd.init.irix ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
-    chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
-    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgc_prngd K05tgc_prngd)
-    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgc_prngd S95tgc_prngd)
+    $CP $metadir/prngd.init ${stagedir}/${_sysconfdir}/init.d/tgcc_prngd
+    chmod 755 ${stagedir}/${_sysconfdir}/init.d/tgcc_prngd
+    (setdir ${stagedir}/${_sysconfdir}/rc0.d; $LN -sf ../init.d/tgcc_prngd K05tgcc_prngd)
+    (setdir ${stagedir}/${_sysconfdir}/rc2.d; $LN -sf ../init.d/tgcc_prngd S95tgcc_prngd)
     # And set it up to run at boot
-    echo "on" > ${stagedir}/${_sysconfdir}/config/tgc_prngd
+    echo "on" > ${stagedir}/${_sysconfdir}/config/tgcc_prngd
     # Preserve existing on/off setting
-    echo "${_sysconfdir}/config/tgc_prngd config(noupdate)" > $metadir/ops
+    echo "${_sysconfdir}/config/tgcc_prngd config(noupdate)" > $metadir/ops
 
     # Adjust prngd path in initscript
-    $GSED -i "/^PRNGD_BIN/s|=.*|=${prefix}/${_sbindir}/prngd|" ${stagedir}/${_sysconfdir}/init.d/tgc_prngd
+    $GSED -i "/^PRNGD_BIN/s|=.*|=${prefix}/${_sbindir}/prngd|" ${stagedir}/${_sysconfdir}/init.d/tgcc_prngd
 
     # Dont overwrite prngd-seed on upgrade
     echo "${prefix#/*}/${_sysconfdir}/prngd/prngd-seed config(noupdate)" >> $metadir/ops
