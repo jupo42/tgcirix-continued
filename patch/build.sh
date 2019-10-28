@@ -9,8 +9,8 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=patch
-version=2.5.4
-pkgver=9
+version=2.7.6
+pkgver=1
 source[0]=ftp://ftp.gnu.org/gnu/patch/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
 #patch[0]=
