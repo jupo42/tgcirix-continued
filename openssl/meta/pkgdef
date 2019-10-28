@@ -1,5 +1,5 @@
 [common]
-pkgname="${pkgprefix}${topdir}${abbrev_ver}"
+pkgname="${pkgprefix}${topdir}1"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.openssl.org"
