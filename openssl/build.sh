@@ -9,11 +9,11 @@
 ###########################################################
 # Check the following 4 variables before running the script
 topdir=openssl
-version=1.0.0r
-pkgver=12
+version=1.1.1d
+pkgver=1
 source[0]=http://www.openssl.org/source/$topdir-$version.tar.gz
 # If there are no patches, simply comment this
-patch[0]=openssl-1.0.0a-no-multilib.patch
+#patch[0]=openssl-1.0.0a-no-multilib.patch
 
 # Source function library
 . ${BUILDPKG_SCRIPTS}/buildpkg.functions
@@ -26,8 +26,7 @@ configure_args=(--prefix=$prefix --openssldir=$prefix/ssl zlib shared)
 mipspro=1
 if [ "$_os" == "irix53" ]; then
     configure_args+=(irix-cc)
-fi
-if [ "$_os" == "irix62" ]; then
+else
     configure_args+=(irix-mips3-cc)
 fi
 make_check_target=test
@@ -38,7 +37,7 @@ prep()
     generic_prep
     setdir source
     # Hack that will allow the testsuite to run
-    ${__gsed} -i "/eval \$rld_var/ s|/usr/lib|${prefix}/${_libdir}:/usr/lib|g" util/shlib_wrap.sh
+#    ${__gsed} -i "/eval \$rld_var/ s|/usr/lib|${prefix}/${_libdir}:/usr/lib|g" util/shlib_wrap.sh
 }
 
 reg build
@@ -47,15 +46,15 @@ build()
     setdir source
     $__configure "${configure_args[@]}"
     if [ "$_os" == "irix53" ]; then
-	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/tgcware/include;' Makefile
-	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile
+	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/local/include;' Makefile
+	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lz;' Makefile
 	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}" depend
 	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}"
     else
 	# Disable IPv6 on IRIX 6.2
 	${__gsed} -i 's/AF_INET6/DISABLE_AF_INET6/g' e_os.h
-	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-I/usr/tgcware/include;' Makefile
-	${__gsed} -i '/EX_LIBS/s;-lz;-L/usr/tgcware/lib -Wl,-rpath,/usr/tgcware/lib -lz;' Makefile
+	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-I/usr/local/include;' Makefile
+	${__gsed} -i '/EX_LIBS/s;-lz;-L/usr/local/lib -Wl,-rpath,/usr/local/lib -lz;' Makefile
 	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}" depend
 	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}"
     fi
@@ -72,7 +71,7 @@ install()
 {
     clean stage
     setdir source
-    ${__make} INSTALL_PREFIX=$stagedir MANDIR=${prefix}/${_mandir} install
+    ${__make} DESTDIR=$stagedir MANDIR=${prefix}/${_mandir} install
     setdir ${stagedir}${prefix}/${_mandir}
     for j in $(${__ls} -1d man?)
     do
