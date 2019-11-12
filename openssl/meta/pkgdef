@@ -1,5 +1,5 @@
 [common]
-pkgname="${pkgprefix}${topdir}1"
+pkgname="${pkgprefix}${topdir}"
 name="$topdir"
 pkgver="$pkgver"
 pkgvendor="http://www.openssl.org"
@@ -16,8 +16,9 @@ ssl
 [lib]
 subsys=sw.lib
 files(-,root,sys)
+$_libdir/*.so
 $_libdir/*.so.*
-$_libdir/engines/*.so
+$_libdir/engines-1.1/*.so
 
 [man]
 subsys=man.man
@@ -28,7 +29,6 @@ $_mandir/*[12456789]
 subsys=sw.dev
 files(-,root,sys)
 $_includedir
-$_libdir/*.so
 $_libdir/*.a
 $_libdir/pkgconfig/*
 

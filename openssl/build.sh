@@ -24,11 +24,11 @@ check_ac=0
 __configure="./Configure"
 configure_args=(--prefix=$prefix --openssldir=$prefix/ssl zlib shared)
 mipspro=1
-if [ "$_os" == "irix53" ]; then
-    configure_args+=(irix-cc)
-else
+#if [ "$_os" == "irix53" ]; then
+#    configure_args+=(irix-cc)
+#else
     configure_args+=(irix-mips3-cc)
-fi
+#fi
 make_check_target=test
 
 reg prep
@@ -45,19 +45,19 @@ build()
 {
     setdir source
     $__configure "${configure_args[@]}"
-    if [ "$_os" == "irix53" ]; then
-	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/local/include;' Makefile
-	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lz;' Makefile
-	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}" depend
-	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}"
-    else
+#    if [ "$_os" == "irix53" ]; then
+#	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-Olimit 3000 -I/usr/local/include;' Makefile
+#	${__gsed} -i '/EX_LIBS/s;-lz;-Wl,-no_rqs -L/usr/local/lib -Wl,-rpath,/usr/local/lib -lz;' Makefile
+#	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}" depend
+#	${__make} SHARED_LDFLAGS="-Wl,-no_rqs -Wl,-rpath,${prefix}/${_libdir}"
+#    else
 	# Disable IPv6 on IRIX 6.2
 	${__gsed} -i 's/AF_INET6/DISABLE_AF_INET6/g' e_os.h
 	${__gsed} -i '/^CFLAG=/s;.*=;CFLAG=-I/usr/local/include;' Makefile
 	${__gsed} -i '/EX_LIBS/s;-lz;-L/usr/local/lib -Wl,-rpath,/usr/local/lib -lz;' Makefile
 	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}" depend
 	${__make} SHARED_LDFLAGS="-Wl,-rpath,${prefix}/${_libdir}"
-    fi
+#    fi
 }
 
 reg check
@@ -72,25 +72,26 @@ install()
     clean stage
     setdir source
     ${__make} DESTDIR=$stagedir MANDIR=${prefix}/${_mandir} install
-    setdir ${stagedir}${prefix}/${_mandir}
-    for j in $(${__ls} -1d man?)
-    do
-        cd $j
-        for manpage in *
-        do
-            if [ -L "${manpage}" ]; then
-                TARGET=`${__ls} -l "${manpage}" | ${__awk} '{ print $NF }'`
-                ${__ln} -sf "${TARGET}"ssl "${manpage}"ssl
-                ${__rm} -f "${manpage}"
-            else
-                ${__mv} "$manpage" "$manpage""ssl"
-            fi
-        done
-        cd ..
-    done
+ #   setdir ${stagedir}${prefix}/${_mandir}
+ #   for j in $(${__ls} -1d man?)
+ #   do
+ #       cd $j
+ #       for manpage in *
+ #       do
+ #           if [ -L "${manpage}" ]; then
+ #               TARGET=`${__ls} -l "${manpage}" | ${__awk} '{ print $NF }'`
+ #               ${__ln} -sf "${TARGET}"ssl "${manpage}"ssl
+ #               ${__rm} -f "${manpage}"
+ #           else
+ #               ${__mv} "$manpage" "$manpage""ssl"
+ #           fi
+ #       done
+ #       cd ..
+ #   done
     doc README CHANGES FAQ INSTALL LICENSE NEWS
-    chmod 755 ${stagedir}${prefix}/${_libdir}/*.so.*
-    chmod 755 ${stagedir}${prefix}/${_libdir}/engines/*.so
+    chmod 755 ${stagedir}${prefix}/${_libdir}/*.so*
+    chmod 755 ${stagedir}${prefix}/${_libdir}/engines-1.1/*.so
+    ${__rm} -rf ${stagedir}${prefix}/${_docdir}/openssl
     custom_install=1
     generic_install INSTALL_PREFIX
 }
